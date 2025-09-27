@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: nginx-mysql-deployment
+    namespace: nginx-ns
+    labels:
+        app: nginx-mysql
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: nginx-mysql
+    
+    template:
+        metadata:
+            name: nginx-mysql-dep-pod
+            labels:
+                app: nginx-mysql
+        spec:
+            containers:
+            - name: nginx
+              image: nginx:1.14.2
+              ports:
+              - containerPort: 80
+            - name: mysql
+              image: mysql:5.7 # Or any other version you want to use 
+              env:
+              - name: MYSQL_ROOT_PASSWORD
+                value: "rootpassword" # Change this to a more secure password
+              - name: MYSQL_DATABASE
+                value: "mydatabase" # Optional: You can create a default database
+              ports:
+              - containerPort: 3306
+              volumeMounts:
+              - name: mysql-data
+            mountPath: /var/lib/mysql
+    volumes:
+    - name: mysql-data
+    persistentVolumeClaim:
+    claimName: mysql-pvc # PVC should be defined elsewhere, this refers to the volume.
