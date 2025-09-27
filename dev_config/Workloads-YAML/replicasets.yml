@@ -4,18 +4,18 @@ metadata:
     name: nginx-replicasets
     namespace: nginx-ns
     labels:
-        app: nginx-pod
+        app: nginx-pod-R
 spec:
     replicas: 2
     selector:
         matchLabels:
-            app: nginx-pod
+            app: nginx-pod-R
     
     template:
         metadata:
             name: nginx-rep-pod
             labels:
-                app: nginx-pod
+                app: nginx-pod-R
         spec:
             containers:
             - name: nginx

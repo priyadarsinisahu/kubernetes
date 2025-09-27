@@ -4,17 +4,17 @@ metadata:
     name: nginx-daemonsets
     namespace: nginx-ns
     labels:
-        app: nginx-pod
+        app: nginx-pod-dmn
 spec:
     selector:
-    matchLabels:
-        app: nginx-pod
+      matchLabels:
+        app: nginx-pod-dmn
 
     template:
         metadata:
             name: nginx-dmn-pod
             labels:
-                app: nginx-pod
+                app: nginx-pod-dmn
         spec:
             containers:
             - name: nginx
